@@ -18,7 +18,10 @@ function initializeDatabase() {
     {
       author: DataTypes.STRING,
       content: DataTypes.STRING,
-      parentId: DataTypes.INTEGER,
+      parentId: {
+        type: DataTypes.INTEGER,
+        allowNull: true,
+      },
       rating: DataTypes.INTEGER,
     },
     { sequelize, modelName: "comment" }
