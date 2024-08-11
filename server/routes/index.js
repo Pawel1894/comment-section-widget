@@ -1,28 +1,35 @@
-var express = require("express");
+const express = require("express");
+const router = express.Router();
 const { Comment } = require("../db/comments-model");
-var router = express.Router();
+const { Topic } = require("../db/topic-model");
 
-/* GET home page. */
-router.get("/", async function (req, res, next) {
+router.get("/topic/:topicId/comment", async function (req, res, next) {
   try {
-    const comments = await Comment.findAll();
+    const { topicId } = req.params;
+    const comments = await Comment.findAll({
+      where: { topicId },
+    });
     res.json(comments);
   } catch (error) {
     next(error);
   }
 });
 
-router.put("/", async function (req, res, next) {
-  try {
-    const comment = await Comment.create(req.body);
+router.put("/topic/:topicId/comment", async function (req, res, next) {
+  if (!topicId) {
+    return res.status(400).json({ error: "Topic ID is required" });
+  }
 
+  try {
+    const { topicId } = req.params;
+    const comment = await Comment.create({ ...req.body, topicId });
     res.json(comment);
   } catch (error) {
     next(error);
   }
 });
 
-router.post("/upvote/:id", async function (req, res, next) {
+router.post("/comment/upvote/:id", async function (req, res, next) {
   try {
     const comment = await Comment.findByPk(req.params.id);
     if (!comment) {
@@ -38,7 +45,7 @@ router.post("/upvote/:id", async function (req, res, next) {
   }
 });
 
-router.post("/downvote/:id", async function (req, res, next) {
+router.post("/comment/downvote/:id", async function (req, res, next) {
   try {
     const comment = await Comment.findByPk(req.params.id);
     if (!comment) {
@@ -49,6 +56,36 @@ router.post("/downvote/:id", async function (req, res, next) {
     await comment.save();
 
     res.json(comment);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/topic", async function (req, res, next) {
+  try {
+    const topics = await Topic.findAll();
+    res.json(topics);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.put("/topic", async function (req, res, next) {
+  try {
+    const topic = await Topic.create(req.body);
+    res.json(topic);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/topic/:id", async function (req, res, next) {
+  try {
+    const topic = await Topic.findByPk(req.params.id);
+    if (!topic) {
+      return res.status(404).json({ error: "Topic not found" });
+    }
+    res.json(topic);
   } catch (error) {
     next(error);
   }
