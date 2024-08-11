@@ -5,7 +5,7 @@ var cookieParser = require("cookie-parser");
 var logger = require("morgan");
 
 var indexRouter = require("./routes/index");
-const { initializeDatabase } = require("./models/schema");
+const { initializeDatabase } = require("./db/schema");
 
 var app = express();
 

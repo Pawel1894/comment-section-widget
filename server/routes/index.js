@@ -1,5 +1,5 @@
 var express = require("express");
-const { Comment } = require("../models/comments-model");
+const { Comment } = require("../db/comments-model");
 var router = express.Router();
 
 /* GET home page. */
