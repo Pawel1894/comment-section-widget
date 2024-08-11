@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const { Comment } = require("../db/comments-model");
 const { Topic } = require("../db/topic-model");
+const { createLikeFilter } = require("../db/like-filter");
 
 router.get("/topic/:topicId/comment", async function (req, res, next) {
   try {
@@ -63,7 +64,13 @@ router.post("/comment/downvote/:id", async function (req, res, next) {
 
 router.get("/topic", async function (req, res, next) {
   try {
-    const topics = await Topic.findAll();
+    const { search } = req.query;
+
+    const topics = await Topic.findAll({
+      where: {
+        ...createLikeFilter("content", search),
+      },
+    });
     res.json(topics);
   } catch (error) {
     next(error);
