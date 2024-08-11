@@ -16,13 +16,23 @@ function initializeDatabase() {
 
   Comment.init(
     {
-      author: DataTypes.STRING,
-      content: DataTypes.STRING,
+      author: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
+      content: {
+        type: DataTypes.STRING,
+        allowNull: false,
+      },
       parentId: {
         type: DataTypes.INTEGER,
         allowNull: true,
       },
-      rating: DataTypes.INTEGER,
+      rating: {
+        type: DataTypes.INTEGER,
+        allowNull: false,
+        defaultValue: 0,
+      },
     },
     { sequelize, modelName: "comment" }
   );

@@ -14,12 +14,7 @@ router.get("/", async function (req, res, next) {
 
 router.put("/", async function (req, res, next) {
   try {
-    const newComment = {
-      ...req.body,
-      rating: 0,
-    };
-
-    const comment = await Comment.create(newComment);
+    const comment = await Comment.create(req.body);
 
     res.json(comment);
   } catch (error) {
