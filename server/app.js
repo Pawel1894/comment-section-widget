@@ -3,11 +3,21 @@ var express = require("express");
 const bodyParser = require("body-parser");
 var cookieParser = require("cookie-parser");
 var logger = require("morgan");
+const cors = require("cors");
 
 var indexRouter = require("./routes/index");
 const { initializeDatabase } = require("./db/schema");
 
 var app = express();
+
+const corsOptions = {
+  origin: "http://localhost:5173",
+  methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+  credentials: true, // Allow cookies to be sent
+  optionsSuccessStatus: 204,
+};
+
+app.use(cors(corsOptions));
 
 initializeDatabase();
 
