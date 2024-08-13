@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
 import { Topic, TopicSchema } from "../topic-types";
 
@@ -11,4 +11,5 @@ export const useTopicsQuery = (search: string) =>
   useQuery({
     queryKey: ["topics", search],
     queryFn: () => fetchTopics(search),
+    placeholderData: keepPreviousData,
   });
