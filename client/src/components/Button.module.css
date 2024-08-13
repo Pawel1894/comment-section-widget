@@ -1,0 +1,50 @@
+.button {
+  cursor: pointer;
+  border-radius: 0.25rem;
+  border: 1px solid transparent;
+  background-color: transparent;
+  font-weight: 600;
+  transition: background-color 0.2s ease-in-out;
+  max-width: 12.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.button:disabled {
+  cursor: default;
+}
+
+.button:where([data-variant="text"]) {
+  color: var(--primary-color);
+  background-color: transparent;
+}
+
+.button:where([data-variant="text"]):hover {
+  background-color: hsla(0, 0%, 0%, 0.05);
+}
+
+.button:where([data-variant="text"]):disabled {
+  color: hsla(0, 0%, 0%, 0.58);
+  background-color: transparent;
+}
+
+.button:where([data-variant="contained"]) {
+  color: var(--neutral-color);
+  background-color: var(--primary-color);
+}
+
+.button:where([data-variant="contained"]):hover {
+  background-color: var(--secondary-color);
+}
+
+.button:where([data-variant="contained"]):disabled {
+  color: hsla(0, 0%, 100%, 0.98);
+  background-color: hsla(0, 0%, 0%, 0.4);
+}
+
+.button:where([data-size="md"]) {
+  min-width: 4.375rem;
+  font-size: 1rem;
+  padding: 0.25rem 0.5rem;
+}
