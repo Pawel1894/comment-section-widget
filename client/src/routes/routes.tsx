@@ -1,5 +1,5 @@
-import ErrorPage from "@pages/error-page";
-import { Home } from "@pages/home";
+import ErrorPage from "@pages/ErrorPage";
+import { Home } from "@pages/Home";
 import { createBrowserRouter } from "react-router-dom";
 
 
