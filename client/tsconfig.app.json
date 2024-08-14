@@ -23,11 +23,13 @@
     "baseUrl": ".",
     "paths": {
       "@/*": ["src/*"],
+      "@tests/*": ["src/tests/*"],
       "@components/*": ["src/components/*"],
       "@pages/*": ["src/pages/*"],
       "@topic/*": ["src/topic/*"],
       "@shared/*": ["src/shared/*"]
-    }
+    },
+    "types": ["vitest/globals"]
   },
   "include": ["src"]
 }

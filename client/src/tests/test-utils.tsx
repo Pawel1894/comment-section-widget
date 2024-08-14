@@ -1,0 +1,27 @@
+import * as React from "react";
+import { render as rtlRender } from "@testing-library/react";
+import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      // ✅ turns retries off
+      retry: false,
+    },
+  },
+})
+
+
+function render(ui: React.ReactElement, options = {}) {
+  const Wrapper = ({ children }: {
+    children: React.ReactNode;
+  }) => (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  );
+  return rtlRender(ui, { wrapper: Wrapper, ...options });
+}
+
+export * from "@testing-library/react";
+export { vi } from 'vitest';
+export { default as userEvent } from '@testing-library/user-event';
+export { render };
