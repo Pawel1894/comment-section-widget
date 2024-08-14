@@ -1,5 +1,9 @@
+import { CreateTopic } from "@topic/CreateTopic"
+
 export const Home = () => {
   return (
-    <div>home</div>
+    <div>
+      <CreateTopic />
+    </div>
   )
 }
