@@ -8,9 +8,9 @@ export type ButtonProps = {
   children: ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
-export const Button: FC<ButtonProps> = ({ variant = "text", size = "md", children, ...props }) => {
+export const Button: FC<ButtonProps> = ({ variant = "text", size = "md", children, className, ...props }) => {
   return (
-    <button className={styles.button} data-size={size} data-variant={variant} {...props}>
+    <button className={`${styles.button} ${className}`} data-size={size} data-variant={variant} {...props}>
       {children}
     </button>
   );
