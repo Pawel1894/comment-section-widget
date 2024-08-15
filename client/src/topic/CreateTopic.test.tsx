@@ -19,13 +19,9 @@ describe('CreateTopic Component', () => {
     vi.clearAllMocks();
   });
 
-  afterEach(() => {
-    vi.resetModules();
-  });
-
   it('renders the Create Topic button', async () => {
     render(<CreateTopic />);
-    const button = await screen.getByText('Create Topic')
+    const button = await screen.getByText('Create new topic')
     expect(button).toBeInTheDocument();
   });
 
@@ -34,7 +30,7 @@ describe('CreateTopic Component', () => {
     render(<CreateTopic />);
     vi.mocked(validateTopicInput).mockReturnValue({ valid: false, error: 'error' });
 
-    fireEvent.click(screen.getByText('Create Topic'));
+    fireEvent.click(screen.getByText('Create new topic'));
     expect(window.prompt).toHaveBeenCalledWith('Enter a topic name');
   });
 
@@ -44,7 +40,7 @@ describe('CreateTopic Component', () => {
 
     render(<CreateTopic />);
 
-    fireEvent.click(screen.getByText('Create Topic'));
+    fireEvent.click(screen.getByText('Create new topic'));
     expect(toast.warn).toHaveBeenCalledWith('Topic must not be empty');
   });
 
@@ -54,7 +50,7 @@ describe('CreateTopic Component', () => {
 
     render(<CreateTopic />);
 
-    await fireEvent.click(screen.getByText('Create Topic'));
+    await fireEvent.click(screen.getByText('Create new topic'));
 
     await waitFor(() => {
       expect(toast.success).toHaveBeenCalledWith('Topic created!');
@@ -66,7 +62,7 @@ describe('CreateTopic Component', () => {
     
     render(<CreateTopic />);
 
-    fireEvent.click(screen.getByText('Create Topic'));
+    fireEvent.click(screen.getByText('Create new topic'));
 
     await waitFor(() => {
       expect(toast.error).toHaveBeenCalledWith('Failed to create topic');

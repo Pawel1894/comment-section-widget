@@ -17,6 +17,6 @@ export const handlers = [
       updatedAt: new Date().toISOString(),
     };
 
-    return HttpResponse.json([newTopic], { status: 201 });
+    return HttpResponse.json(newTopic, { status: 200 });
   }),
 ];
