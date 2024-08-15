@@ -11,5 +11,5 @@
 }
 
 .loader[data-visible="false"] {
-  display: none;
+  visibility: hidden;
 }
