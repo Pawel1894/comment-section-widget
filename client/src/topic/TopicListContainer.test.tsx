@@ -10,8 +10,8 @@ describe('TopicListContainer', () => {
     expect(searchInput).toBeInTheDocument();
 
     await waitFor(() => {
-      expect(screen.getByText(mockTopics[0].content)).toBeInTheDocument();
-      expect(screen.getByText(mockTopics[1].content)).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`.*\\. ${mockTopics[0].content}`))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`.*\\. ${mockTopics[1].content}`))).toBeInTheDocument();
     });
   });
 
@@ -22,8 +22,8 @@ describe('TopicListContainer', () => {
     fireEvent.change(searchInput, { target: { value: mockTopics[0].content } });
 
     await waitFor(() => {
-      expect(screen.getByText(mockTopics[0].content)).toBeInTheDocument();
-      expect(screen.queryByText(mockTopics[1].content)).not.toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`.*\\. ${mockTopics[0].content}`))).toBeInTheDocument();
+      expect(screen.queryByText(new RegExp(`.*\\. ${mockTopics[1].content}`))).not.toBeInTheDocument();
     });
   });
 
@@ -45,15 +45,15 @@ describe('TopicListContainer', () => {
     fireEvent.change(searchInput, { target: { value: mockTopics[0].content } });
 
     await waitFor(() => {
-      expect(screen.getByText(mockTopics[0].content)).toBeInTheDocument();
-      expect(screen.queryByText(mockTopics[1].content)).not.toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`.*\\. ${mockTopics[0].content}`))).toBeInTheDocument();
+      expect(screen.queryByText(new RegExp(`.*\\. ${mockTopics[1].content}`))).not.toBeInTheDocument();
     });
 
     fireEvent.change(searchInput, { target: { value: '' } });
 
     await waitFor(() => {
-      expect(screen.getByText(mockTopics[0].content)).toBeInTheDocument();
-      expect(screen.getByText(mockTopics[1].content)).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`.*\\. ${mockTopics[0].content}`))).toBeInTheDocument();
+      expect(screen.getByText(new RegExp(`.*\\. ${mockTopics[1].content}`))).toBeInTheDocument();
     });
   });
 
@@ -61,7 +61,7 @@ describe('TopicListContainer', () => {
     render(<TopicListContainer />);
     await waitFor(() => {
       mockTopics.forEach((topic) => {
-        const link = screen.getByText(topic.content).closest('a');
+        const link = screen.getByText(new RegExp(`.*\\. ${topic.content}`)).closest('a');
         expect(link).toHaveAttribute('href', expect.stringMatching(new RegExp(`/${topic.id}$`)));
       });
     });
