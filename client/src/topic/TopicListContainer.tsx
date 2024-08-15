@@ -25,8 +25,8 @@ export const TopicListContainer = () => {
       <div>No topics found</div>
     ) : (
       <TopicList>
-        {data?.map((topic) => (
-          <TopicItem key={topic.id} id={topic.id} content={topic.content} />
+        {data?.map((topic, i) => (
+          <TopicItem key={topic.id} id={topic.id} content={topic.content} index={i + 1} />
         ))}
       </TopicList>
     )
