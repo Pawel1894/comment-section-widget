@@ -1,4 +1,4 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
 import { Topic, TopicSchema } from "../topic-types";
 
@@ -14,9 +14,14 @@ type UseCreateTopic = {
 };
 
 export const useCreateTopic = ({ onSuccess, onError }: UseCreateTopic) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: createTopic,
-    onSuccess: onSuccess,
+    onSuccess: () => {
+      onSuccess();
+      queryClient.invalidateQueries({ queryKey: ["topics"] });
+    },
     onError: onError,
   });
 };

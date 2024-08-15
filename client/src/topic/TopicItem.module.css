@@ -1,0 +1,18 @@
+.topicItemLink {
+  color: #000;
+  text-decoration: none;
+  white-space: nowrap;
+  overflow-x: hidden;
+  text-overflow: ellipsis;
+  max-width: max-content;
+  flex-shrink: 0;
+  text-decoration: underline;
+}
+
+.topicItemLink:hover {
+  color: var(--accent-color);
+}
+
+.topicItemLink:visited {
+  color: var(--secondary-color);
+}

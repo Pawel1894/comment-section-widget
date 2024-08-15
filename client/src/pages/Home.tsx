@@ -1,9 +1,11 @@
-import { CreateTopic } from "@topic/CreateTopic"
+import { TopicListContainer } from "@/topic/TopicListContainer"
+
+import styles from './Home.module.css'
 
 export const Home = () => {
   return (
-    <div>
-      <CreateTopic />
+    <div className={styles.container}>
+      <TopicListContainer />
     </div>
   )
 }

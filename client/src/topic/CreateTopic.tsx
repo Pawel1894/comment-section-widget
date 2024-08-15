@@ -25,5 +25,5 @@ export const CreateTopic = () => {
     }
   }
 
-  return <Button disabled={isPending} onClick={onClick}>Create Topic</Button>
+  return <Button variant="contained" disabled={isPending} onClick={onClick}>Create new topic</Button>
 }
