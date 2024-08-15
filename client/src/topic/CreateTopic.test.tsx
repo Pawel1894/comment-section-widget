@@ -35,7 +35,7 @@ describe('CreateTopic Component', () => {
   });
 
   it('shows a warning toast', () => {
-    window.prompt = vi.fn().mockReturnValue(null);
+    window.prompt = vi.fn().mockReturnValue('A');
     vi.mocked(validateTopicInput).mockReturnValue({ valid: false, error: 'Topic must not be empty'});
 
     render(<CreateTopic />);

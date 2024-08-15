@@ -12,6 +12,8 @@ export const CreateTopic = () => {
   function onClick() {
     const topic = prompt("Enter a topic name")
     
+    if(!topic) return;
+    
     handleCreateTopic(topic);
   }
 
