@@ -37,8 +37,8 @@ export const TopicListContainer = () => {
       <h3 className={styles.title}>List of uploaded topics</h3>
       <div className={styles.container}>
         <div className={styles.header}>
-          <TopicSearch onChange={handleSearch} showLoading={isLoading || isPlaceholderData} />
           <CreateTopic />
+          <TopicSearch onChange={handleSearch} showLoading={isLoading || isPlaceholderData} />
         </div>
         {errorMessage}
         {topicsContent}
