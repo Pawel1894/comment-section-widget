@@ -70,6 +70,7 @@ router.get("/topic", async function (req, res, next) {
       where: {
         ...createLikeFilter("content", search),
       },
+      order: [["createdAt", "DESC"]],
     });
     res.json(topics);
   } catch (error) {
