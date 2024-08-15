@@ -1,4 +1,4 @@
-import { useTopicsQuery } from "./hooks/use-topic-query";
+import { useTopicsQuery } from "./hooks/use-topics-query";
 import { useState } from "react";
 import { useDebouncedValue } from "@/hooks/useDebouncedValue";
 import { TopicItem } from "./TopicItem";

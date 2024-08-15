@@ -1,4 +1,4 @@
-import { Topic } from "@/pages/Topic";
+import { TopicPage } from "@/pages/TopicPage";
 import ErrorPage from "@pages/ErrorPage";
 import { Home } from "@pages/Home";
 import { createBrowserRouter } from "react-router-dom";
@@ -11,7 +11,7 @@ export const routes = [
   },
   {
     path: "/:id",
-    element: <Topic />,
+    element: <TopicPage />,
   }
 ]
 
