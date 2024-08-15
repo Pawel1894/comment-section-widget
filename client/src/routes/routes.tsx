@@ -1,3 +1,4 @@
+import { Topic } from "@/pages/Topic";
 import ErrorPage from "@pages/ErrorPage";
 import { Home } from "@pages/Home";
 import { createBrowserRouter } from "react-router-dom";
@@ -10,7 +11,7 @@ export const routes = [
   },
   {
     path: "/:id",
-    element: <div>Dynamic route</div>,
+    element: <Topic />,
   }
 ]
 
