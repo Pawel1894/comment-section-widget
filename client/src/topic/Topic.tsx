@@ -1,6 +1,7 @@
 import { FC } from "react";
 import { useTopicQuery } from "./hooks/use-topic-query";
 import { TopicTitle } from "./TopicTitle";
+import { NavigateBackButton } from "@/components/navigate-back-button/NavigateBackButton";
 
 import styles from './Topic.module.css';
 
@@ -13,9 +14,12 @@ export const Topic: FC<TopicProps> = ({ id }) => {
 
   return (
     <div className={styles.topic}>
-      <TopicTitle>
-        {data?.content}
-      </TopicTitle>
+      <div className={styles.contentWrapper}>
+        <NavigateBackButton />
+        <TopicTitle>
+          {data?.content}
+        </TopicTitle>
+      </div>
     </div>
   );
 }

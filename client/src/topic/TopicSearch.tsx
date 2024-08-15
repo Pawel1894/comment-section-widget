@@ -12,7 +12,7 @@ type TopicSearchProps = {
 export const TopicSearch: FC<TopicSearchProps> = ({ showLoading, onChange }) => {
   return (
     <div className={styles.container}>
-      <Input placeholder="search" onChange={onChange} />
+      <Input className={styles.searchInput} placeholder="search" onChange={onChange} />
       <div data-testid="oval-loading-spinner" data-visible={showLoading} className={styles.loader}>
         <Oval
           height="30"
