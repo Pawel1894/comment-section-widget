@@ -1,3 +1,4 @@
+import { CommentsContainer } from '@/components/comment/CommentsContainer';
 import { Topic } from '@topic/Topic';
 import { NavigateBackButton } from '@/components/ui/navigate-back-button/NavigateBackButton';
 import { useParams } from 'react-router-dom';
@@ -18,7 +19,7 @@ export const TopicPage = () => {
         <NavigateBackButton />
         <Topic id={id} />
       </div>
-      {/* CommentsContainer */}
+      <CommentsContainer topicId={id} />
     </div>
   );
 };

@@ -27,6 +27,7 @@
       "@ui/*": ["src/components/ui/*"],
       "@pages/*": ["src/pages/*"],
       "@topic/*": ["src/components/topic/*"],
+      "@comment/*": ["src/components/comment/*"],
       "@shared/*": ["src/shared/*"]
     },
     "types": ["vitest/globals"]

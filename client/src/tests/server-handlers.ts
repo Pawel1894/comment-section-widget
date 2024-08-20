@@ -15,7 +15,7 @@ export const mockTopics = [
   },
 ];
 
-export const handlers = [
+const topicHandlers = [
   http.put<{
     content: string;
   }>("http://localhost:3000/topic", async ({ request }) => {
@@ -44,3 +44,30 @@ export const handlers = [
     return HttpResponse.json(filteredTopics, { status: 200 });
   }),
 ];
+
+const commentHandlers = [
+  http.put<{
+    content: string;
+  }>("http://localhost:3000/topic/25/comment", async ({ request }) => {
+    const comment = (await request.json()) as { author: string; content: string };
+
+    if (!comment.content || !comment.author) {
+      return HttpResponse.json({ error: "Content and author are required" }, { status: 400 });
+    }
+
+    const newComment = {
+      id: 1,
+      topicId: 25,
+      author: comment.author,
+      content: comment.content,
+      rating: 0,
+      parentId: null,
+      createdAt: new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
+    };
+
+    return HttpResponse.json(newComment, { status: 200 });
+  }),
+];
+
+export const handlers = [...topicHandlers, ...commentHandlers];
