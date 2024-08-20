@@ -1,5 +1,8 @@
 import { Topic } from '@topic/Topic';
+import { NavigateBackButton } from '@/components/ui/navigate-back-button/NavigateBackButton';
 import { useParams } from 'react-router-dom';
+
+import styles from './TopicPage.module.css';
 
 export const TopicPage = () => {
   const { id } = useParams<{ id: string }>();
@@ -10,6 +13,12 @@ export const TopicPage = () => {
 
 
   return (
-    <Topic id={id} />
+    <div className={styles.layout}>
+      <div className={styles.heading}>
+        <NavigateBackButton />
+        <Topic id={id} />
+      </div>
+      {/* CommentsContainer */}
+    </div>
   );
 };
