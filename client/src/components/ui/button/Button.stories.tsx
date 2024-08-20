@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from '@storybook/react';
 import { Button as ButtonComponent, ButtonProps } from './Button';
 
 const variantOptions: ButtonProps['variant'][] = ['text', 'contained'];
-const sizeOptions: ButtonProps['size'][] = ['md'];
+const sizeOptions: ButtonProps['size'][] = ['md', 'xs'];
 
 const meta: Meta<typeof ButtonComponent> = {
   title: 'Components/Button',

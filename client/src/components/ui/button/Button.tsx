@@ -4,7 +4,7 @@ import styles from './Button.module.css'
 
 export type ButtonProps = {
   variant?: "text" | "contained";
-  size?: "md";
+  size?: 'xs' | "md";
   children: ReactNode;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
