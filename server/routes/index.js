@@ -17,12 +17,13 @@ router.get("/topic/:topicId/comment", async function (req, res, next) {
 });
 
 router.put("/topic/:topicId/comment", async function (req, res, next) {
+  const { topicId } = req.params;
+
   if (!topicId) {
     return res.status(400).json({ error: "Topic ID is required" });
   }
 
   try {
-    const { topicId } = req.params;
     const comment = await Comment.create({ ...req.body, topicId });
     res.json(comment);
   } catch (error) {
