@@ -1,0 +1,17 @@
+.textarea {
+  background-color: var(--neutral-color);
+  border: 0.125rem solid var(--primary-color);
+  padding: 0.25rem;
+  border-radius: 0.3rem;
+  font-size: 1rem;
+}
+
+.textarea:focus {
+  border-color: var(--secondary-color);
+  outline: none;
+  box-shadow: 0 0 0.1rem var(--secondary-color);
+}
+
+.textarea::placeholder {
+  color: #737373;
+}
