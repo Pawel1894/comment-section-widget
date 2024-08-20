@@ -1,4 +1,4 @@
-import { TopicListContainer } from "@/topic/TopicListContainer"
+import { TopicListContainer } from "@topic/TopicListContainer"
 
 import styles from './Home.module.css'
 

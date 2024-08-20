@@ -1,4 +1,4 @@
-import { Topic } from '@/topic/Topic';
+import { Topic } from '@topic/Topic';
 import { useParams } from 'react-router-dom';
 
 export const TopicPage = () => {

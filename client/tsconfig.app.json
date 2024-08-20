@@ -24,9 +24,9 @@
     "paths": {
       "@/*": ["src/*"],
       "@tests/*": ["src/tests/*"],
-      "@components/*": ["src/components/*"],
+      "@ui/*": ["src/components/ui/*"],
       "@pages/*": ["src/pages/*"],
-      "@topic/*": ["src/topic/*"],
+      "@topic/*": ["src/components/topic/*"],
       "@shared/*": ["src/shared/*"]
     },
     "types": ["vitest/globals"]

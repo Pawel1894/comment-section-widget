@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Oval } from "react-loader-spinner";
-import { Input } from "@/components/input/Input";
+import { Input } from "@ui/input/Input";
 
 import styles from './TopicSearch.module.css';
 

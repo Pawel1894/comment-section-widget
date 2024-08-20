@@ -1,4 +1,4 @@
-import { Button } from "@components/button/Button"
+import { Button } from "@ui/button/Button"
 import { useCreateTopic } from './hooks/use-create-topic';
 import { validateTopicInput } from "./topic-validation";
 import { toast } from "@/toast";

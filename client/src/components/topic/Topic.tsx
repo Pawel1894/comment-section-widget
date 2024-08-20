@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useTopicQuery } from "./hooks/use-topic-query";
 import { TopicTitle } from "./TopicTitle";
-import { NavigateBackButton } from "@/components/navigate-back-button/NavigateBackButton";
+import { NavigateBackButton } from "@ui/navigate-back-button/NavigateBackButton";
 
 import styles from './Topic.module.css';
 
