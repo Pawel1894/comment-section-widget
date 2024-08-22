@@ -20,7 +20,7 @@ const CommentRaw: FC<CommentProps> = ({ author, rating, createdAt, children }) =
         <Button size="xs">Reply</Button>
       </div>
       <div className={styles.about}>
-        <span className={styles.author}>{author}</span>
+        <span title={author} className={styles.author}>{author}</span>
         <span className={styles.date}>{timeAgo(createdAt)}</span>
       </div>
       {children}

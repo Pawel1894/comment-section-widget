@@ -50,6 +50,7 @@ export const CreateComment: FC<CreateCommentProps> = ({ topicId }) => {
     return (
     <form ref={formRef} onSubmit={handleSubmit}>
       <CommentBox className={styles.createComment}>
+        <span>Share your opinion on this topic 😊</span>
         <Label>
           Author
           <Input name="author" required minLength={authorMinLength} maxLength={30} />

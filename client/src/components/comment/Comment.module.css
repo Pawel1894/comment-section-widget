@@ -14,6 +14,10 @@
 .author {
   font-size: 0.8rem;
   font-weight: bold;
+  max-width: 20ch;
+  overflow: hidden;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 .date {
