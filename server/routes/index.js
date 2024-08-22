@@ -9,6 +9,7 @@ router.get("/topic/:topicId/comment", async function (req, res, next) {
     const { topicId } = req.params;
     const comments = await Comment.findAll({
       where: { topicId },
+      order: [["createdAt", "DESC"]],
     });
     res.json(comments);
   } catch (error) {
