@@ -49,7 +49,7 @@ export const CreateComment: FC<CreateCommentProps> = ({ topicId }) => {
 
     return (
     <form ref={formRef} onSubmit={handleSubmit}>
-      <CommentBox className={styles.layout}>
+      <CommentBox className={styles.createComment}>
         <Label>
           Author
           <Input name="author" required minLength={authorMinLength} maxLength={30} />
@@ -58,7 +58,7 @@ export const CreateComment: FC<CreateCommentProps> = ({ topicId }) => {
           Comment
           <Textarea name="content" required minLength={contentMinLength} maxLength={200} />
         </Label>
-        <Button disabled={isPending} className={styles.button}>
+        <Button variant="contained" disabled={isPending} className={styles.button}>
           Send
         </Button>
       </CommentBox>

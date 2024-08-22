@@ -1,9 +1,13 @@
-.layout {
+.createComment {
   display: flex;
   flex-direction: column;
   gap: 1rem;
 }
 
+.createComment > * {
+  width: 100%;
+}
+
 .button {
-  align-self: flex-end;
+  max-width: unset;
 }

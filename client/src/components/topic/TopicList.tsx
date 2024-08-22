@@ -7,5 +7,5 @@ type TopicListProps = {
 };
 
 export const TopicList: FC<TopicListProps> = ({ children }) => {
-  return <div className={styles.container}>{children}</div>;
+  return <div className={styles.topicList}>{children}</div>;
 };

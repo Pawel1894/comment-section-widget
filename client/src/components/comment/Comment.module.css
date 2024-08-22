@@ -1,0 +1,27 @@
+.heading {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: 2px solid var(--neutral-color);
+}
+
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-block: 0.75rem;
+}
+
+.author {
+  font-size: 0.8rem;
+  font-weight: bold;
+}
+
+.date {
+  font-size: 0.65rem;
+  font-style: italic;
+}
+
+.content {
+  text-wrap: balance;
+  word-break: break-word;
+}

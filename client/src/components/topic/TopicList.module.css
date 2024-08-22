@@ -1,4 +1,4 @@
-.container {
+.topicList {
   display: flex;
   flex-direction: column;
   gap: 0.75rem;
@@ -10,7 +10,7 @@
 }
 
 @media (min-width: 768px) {
-  .container {
+  .topicList {
     max-width: 40vw;
   }
 }
