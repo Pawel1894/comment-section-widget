@@ -9,7 +9,7 @@ const fetchComments = async (topicId: string): Promise<ReadonlyArray<Comment>> =
 
 export const useCommentsQuery = (topicId: string) =>
   useQuery({
-    queryKey: ["comments"],
+    queryKey: ["comments", topicId],
     queryFn: () => fetchComments(topicId),
     placeholderData: keepPreviousData,
   });

@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
 import { Comment, CommentSchema } from "../comment-types";
 
@@ -21,14 +21,9 @@ type UseCreateComment = {
 };
 
 export const useCreateComment = ({ topicId, onSuccess, onError }: UseCreateComment) => {
-  const queryClient = useQueryClient();
-
   return useMutation({
     mutationFn: (body: Body) => createComment({ topicId, body }),
-    onSuccess: () => {
-      onSuccess?.();
-      queryClient.invalidateQueries({ queryKey: ["comments"] });
-    },
+    onSuccess: onSuccess,
     onError: onError,
   });
 };
