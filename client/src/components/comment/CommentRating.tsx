@@ -12,43 +12,30 @@ type CommentRatingProps = {
 };
 
 export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId, topicId }) => {
-  const [voted, setVoted] = useVoteState(commentId);
+  const [upvoted, setUpvoted] = useVoteState(commentId);
   
-  const { mutate, isPending } = useVote(commentId, topicId);
+  const { mutate, isPending } = useVote(commentId, topicId, setUpvoted);
 
-  const handleVote = (action: "upvote" | "downvote") => {
-    if (voted === action) {
-      setVoted(undefined);
-      mutate(action === "upvote" ? "downvote" : "upvote");
+  const handleVote = () => {
+    if (upvoted) {
+      mutate("downvote");
       return;
     }
 
-    setVoted(action);
-    mutate(action);
+    mutate('upvote');
   };
-
-  const handleUpvote = () => handleVote("upvote");
-  const handleDownvote = () => handleVote("downvote");
 
   return (
     <div className={styles.commentRating}>
       <Button
         disabled={isPending}
-        variant={voted === "upvote" ? "contained" : "text"}
+        variant={upvoted ? "contained" : "text"}
         size="xs"
-        onClick={handleUpvote}
+        onClick={handleVote}
       >
         ↑
       </Button>
       {rating}
-      <Button
-        disabled={isPending}
-        variant={voted === "downvote" ? "contained" : "text"}
-        size="xs"
-        onClick={handleDownvote}
-      >
-        ↓
-      </Button>
     </div>
   );
 };

@@ -1,5 +1,5 @@
 type LocalStorage = {
-  userVotes: Record<string, string>;
+  userUpvotes: Record<string, boolean>;
 };
 
 export const getFromLocalStorage = <K extends keyof LocalStorage>(key: K): LocalStorage[K] | null => {

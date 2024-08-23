@@ -1,21 +1,20 @@
 import { getFromLocalStorage, setInLocalStorage } from "@/shared/local-storage-utils";
-import { VoteActionSchema, type VoteAction } from "../vote-types";
 
 const getVotesFromLocalStorage = () => {
-  return getFromLocalStorage("userVotes") || {};
+  return getFromLocalStorage("userUpvotes") || {};
 };
 
 export const getVoteValue = (commentId: string) => {
   const value = getVotesFromLocalStorage()[commentId];
-  return value ? VoteActionSchema.parse(value) : undefined;
+  return value ?? undefined;
 };
 
-export const setVoteInLocalStorage = (commentId: string, vote?: VoteAction) => {
+export const setVoteInLocalStorage = (commentId: string, upvoted?: boolean) => {
   const votes = getVotesFromLocalStorage();
-  if (vote) {
-    votes[commentId] = vote;
+  if (upvoted) {
+    votes[commentId] = upvoted;
   } else {
     delete votes[commentId];
   }
-  setInLocalStorage("userVotes", votes);
+  setInLocalStorage("userUpvotes", votes);
 };

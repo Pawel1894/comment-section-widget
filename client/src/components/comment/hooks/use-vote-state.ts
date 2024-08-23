@@ -1,6 +1,5 @@
 import { useSyncExternalStore } from "react";
 import { getVoteValue, setVoteInLocalStorage } from "../utils/vote-local-storage";
-import type { VoteAction } from "../vote-types";
 
 const subscribe = (callback: () => void) => {
   window.addEventListener("storage", callback);
@@ -9,14 +8,14 @@ const subscribe = (callback: () => void) => {
 
 export const useVoteState = (
   commentId: string
-): [VoteAction | undefined, (vote: VoteAction | undefined) => void] => {
-  const getSnapshot = (): VoteAction | undefined => getVoteValue(commentId);
+): [boolean | undefined, (vote: boolean | undefined) => void] => {
+  const getSnapshot = (): boolean | undefined => getVoteValue(commentId);
 
-  const vote = useSyncExternalStore(subscribe, getSnapshot);
+  const upvoted = useSyncExternalStore(subscribe, getSnapshot);
 
-  const setVoteState = (newVote: VoteAction | undefined) => {
+  const setUpvotedState = (newVote: boolean | undefined) => {
     setVoteInLocalStorage(commentId, newVote);
   };
 
-  return [vote, setVoteState];
+  return [upvoted, setUpvotedState];
 };

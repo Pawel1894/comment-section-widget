@@ -13,7 +13,11 @@ const vote = async ({ commentId, action }: voteParams): Promise<number> => {
   return response.data;
 };
 
-export const useVote = (commentId: string, topicId: string) => {
+export const useVote = (
+  commentId: string,
+  topicId: string,
+  setLocalVoted: (state: boolean | undefined) => void
+) => {
   const queryClient = useQueryClient();
 
   return useMutation({
@@ -23,6 +27,7 @@ export const useVote = (commentId: string, topicId: string) => {
         queryKey: ["comments", topicId],
       });
 
+      setLocalVoted(action === "upvote");
       const previousComments = queryClient.getQueryData(["comments", topicId]);
 
       queryClient.setQueryData(["comments", topicId], (old: Comment[]) => {
@@ -37,10 +42,11 @@ export const useVote = (commentId: string, topicId: string) => {
         });
       });
 
-      return { previousComments };
+      return { previousComments, action };
     },
     onError: (_, __, context) => {
       queryClient.setQueryData(["comments", topicId], context?.previousComments);
+      setLocalVoted(context?.action === "upvote" ? false : true);
     },
     onSettled: () => {
       queryClient.invalidateQueries({

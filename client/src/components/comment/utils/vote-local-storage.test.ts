@@ -1,5 +1,4 @@
 import { getFromLocalStorage, setInLocalStorage } from "@/shared/local-storage-utils";
-import { VoteActionSchema, type VoteAction } from "../vote-types";
 import { vi, Mock } from "vitest";
 import { getVoteValue, setVoteInLocalStorage } from "./vote-local-storage";
 
@@ -14,15 +13,15 @@ describe("vote-local-storage", () => {
   });
 
   describe("getVoteValue", () => {
-    it("should return parsed vote value for existing commentId", () => {
+    it("should return vote value for existing commentId", () => {
       const commentId = "comment1";
-      const vote = "upvote";
+      const vote: boolean | undefined = true;
       const votes = { [commentId]: vote };
       (getFromLocalStorage as Mock).mockImplementation(() => votes);
 
       const result = getVoteValue(commentId);
-      expect(result).toEqual(VoteActionSchema.parse(vote));
-      expect(getFromLocalStorage).toHaveBeenCalledWith("userVotes");
+      expect(result).toEqual(vote);
+      expect(getFromLocalStorage).toHaveBeenCalledWith("userUpvotes");
     });
 
     it("should return undefined for non-existing commentId", () => {
@@ -32,14 +31,14 @@ describe("vote-local-storage", () => {
 
       const result = getVoteValue(commentId);
       expect(result).toBeUndefined();
-      expect(getFromLocalStorage).toHaveBeenCalledWith("userVotes");
+      expect(getFromLocalStorage).toHaveBeenCalledWith("userUpvotes");
     });
   });
 
   describe("setVoteInLocalStorage", () => {
     it("should set the vote value for a commentId", () => {
       const commentId = "comment1";
-      const vote: VoteAction = "upvote";
+      const vote: boolean | undefined = true;
       const votes: Record<string, string> = {};
       (getFromLocalStorage as Mock).mockImplementation(() => votes);
       (setInLocalStorage as Mock).mockImplementation((_, value) => {
@@ -49,7 +48,7 @@ describe("vote-local-storage", () => {
       setVoteInLocalStorage(commentId, vote);
 
       expect(votes[commentId]).toEqual(vote);
-      expect(setInLocalStorage).toHaveBeenCalledWith("userVotes", votes);
+      expect(setInLocalStorage).toHaveBeenCalledWith("userUpvotes", votes);
     });
 
     it("should remove the vote value for a commentId if vote is undefined", () => {
@@ -63,7 +62,7 @@ describe("vote-local-storage", () => {
       setVoteInLocalStorage(commentId);
 
       expect(votes[commentId]).toBeUndefined();
-      expect(setInLocalStorage).toHaveBeenCalledWith("userVotes", votes);
+      expect(setInLocalStorage).toHaveBeenCalledWith("userUpvotes", votes);
     });
   });
 });
