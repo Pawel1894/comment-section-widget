@@ -52,7 +52,7 @@ router.post("/comment/vote/:id", async function (req, res, next) {
     }
 
     await comment.save();
-    res.json(comment);
+    res.json(comment.rating);
   } catch (error) {
     next(error);
   }
