@@ -15,7 +15,7 @@ export const CommentsContainer: FC<CommentsContainerProps> = ({ topicId }) => {
   return (
     <div className={styles.commentsContainer}>
       <CreateComment topicId={topicId} />
-      {data && <CommentsList comments={data}  />}
+      {data && <CommentsList comments={data} topicId={topicId}  />}
     </div>
   );
 };

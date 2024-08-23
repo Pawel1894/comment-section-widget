@@ -7,12 +7,13 @@ import styles from "./CommentRating.module.css";
 type CommentRatingProps = {
   rating: number;
   commentId: string;
+  topicId: string;
 };
 
 // TODO: Keep track of the user's vote using Local Storage not just the UI
-export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId }) => {
+export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId, topicId }) => {
   const [voted, setVoted] = useState<"upvote" | "downvote">();
-  const { mutate } = useVote(commentId);
+  const { mutate, isPending } = useVote(commentId, topicId);
 
   const handleVote = (action: "upvote" | "downvote") => {
     if (voted === action) {
@@ -30,11 +31,21 @@ export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId }) => 
 
   return (
     <div className={styles.commentRating}>
-      <Button variant={voted === "upvote" ? "contained" : "text"} size="xs" onClick={handleUpvote}>
+      <Button
+        disabled={isPending}
+        variant={voted === "upvote" ? "contained" : "text"}
+        size="xs"
+        onClick={handleUpvote}
+      >
         ↑
       </Button>
       {rating}
-      <Button variant={voted === "downvote" ? "contained" : "text"} size="xs" onClick={handleDownvote}>
+      <Button
+        disabled={isPending}
+        variant={voted === "downvote" ? "contained" : "text"}
+        size="xs"
+        onClick={handleDownvote}
+      >
         ↓
       </Button>
     </div>

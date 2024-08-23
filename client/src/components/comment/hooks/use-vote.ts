@@ -1,5 +1,6 @@
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
+import { Comment } from "../comment-types";
 
 type action = "upvote" | "downvote";
 
@@ -13,8 +14,39 @@ const vote = async ({ commentId, action }: voteParams): Promise<number> => {
   return response.data;
 };
 
-export const useVote = (commentId: string) => {
+export const useVote = (commentId: string, topicId: string) => {
+  const queryClient = useQueryClient();
+
   return useMutation({
     mutationFn: (action: action) => vote({ commentId, action }),
+    onMutate: async (action: action) => {
+      await queryClient.cancelQueries({
+        queryKey: ["comments", topicId],
+      });
+
+      const previousComments = queryClient.getQueryData(["comments", topicId]);
+
+      queryClient.setQueryData(["comments", topicId], (old: Comment[]) => {
+        return old.map((comment: Comment) => {
+          if (String(comment.id) === commentId) {
+            return {
+              ...comment,
+              rating: action === "upvote" ? comment.rating + 1 : comment.rating - 1,
+            };
+          }
+          return comment;
+        });
+      });
+
+      return { previousComments };
+    },
+    onError: (_, __, context) => {
+      queryClient.setQueryData(["comments", topicId], context?.previousComments);
+    },
+    onSettled: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["comments", topicId],
+      });
+    },
   });
 };
