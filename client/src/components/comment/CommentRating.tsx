@@ -1,6 +1,7 @@
-import { FC, useState } from "react";
+import { FC } from "react";
 import { Button } from "@ui/button/Button";
 import { useVote } from "./hooks/use-vote";
+import { useVoteState } from "./hooks/use-vote-state";
 
 import styles from "./CommentRating.module.css";
 
@@ -10,9 +11,9 @@ type CommentRatingProps = {
   topicId: string;
 };
 
-// TODO: Keep track of the user's vote using Local Storage not just the UI
 export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId, topicId }) => {
-  const [voted, setVoted] = useState<"upvote" | "downvote">();
+  const [voted, setVoted] = useVoteState(commentId);
+  
   const { mutate, isPending } = useVote(commentId, topicId);
 
   const handleVote = (action: "upvote" | "downvote") => {

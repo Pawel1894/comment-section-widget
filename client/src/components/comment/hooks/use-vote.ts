@@ -1,12 +1,11 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
 import { Comment } from "../comment-types";
-
-type action = "upvote" | "downvote";
+import type { VoteAction } from "../vote-types";
 
 type voteParams = {
   commentId: string;
-  action: action;
+  action: VoteAction;
 };
 
 const vote = async ({ commentId, action }: voteParams): Promise<number> => {
@@ -18,8 +17,8 @@ export const useVote = (commentId: string, topicId: string) => {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: (action: action) => vote({ commentId, action }),
-    onMutate: async (action: action) => {
+    mutationFn: (action: VoteAction) => vote({ commentId, action }),
+    onMutate: async (action: VoteAction) => {
       await queryClient.cancelQueries({
         queryKey: ["comments", topicId],
       });
