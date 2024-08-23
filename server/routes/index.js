@@ -32,16 +32,26 @@ router.put("/topic/:topicId/comment", async function (req, res, next) {
   }
 });
 
-router.post("/comment/upvote/:id", async function (req, res, next) {
+router.post("/comment/vote/:id", async function (req, res, next) {
+  // Since there is no authentication, we can't prevent users from voting multiple times
+  // Potential solution would be to store voter's IP address and prevent multiple votes from the same IP
+
   try {
+    const { action } = req.query; // Get the action from query parameters
     const comment = await Comment.findByPk(req.params.id);
     if (!comment) {
       return res.status(404).json({ error: "Comment not found" });
     }
 
-    comment.rating = comment.rating + 1;
-    await comment.save();
+    if (action === "upvote") {
+      comment.rating = comment.rating + 1;
+    } else if (action === "downvote") {
+      comment.rating = comment.rating - 1;
+    } else {
+      return res.status(400).json({ error: "Invalid action" });
+    }
 
+    await comment.save();
     res.json(comment);
   } catch (error) {
     next(error);
