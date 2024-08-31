@@ -8,11 +8,10 @@ import styles from "./CommentReplies.module.css";
 
 type CommentRepliesProps = {
   parentCommentId: number;
-  topicId: string;
   onHideReplies: () => void;
 };
 
-export const CommentReplies: FC<CommentRepliesProps> = ({ parentCommentId, topicId, onHideReplies }) => {
+export const CommentReplies: FC<CommentRepliesProps> = ({ parentCommentId, onHideReplies }) => {
   const [showReplies, setShowReplies] = useState(false);
   const { data } = useCommentsRepliesQuery(parentCommentId, showReplies);
 
@@ -44,8 +43,8 @@ export const CommentReplies: FC<CommentRepliesProps> = ({ parentCommentId, topic
                   createdAt={createdAt}
                   rating={
                     <Comment.Rating
-                      key={`rating-${id}`}
-                      topicId={topicId}
+                      context="reply"
+                      parentCommentId={parentCommentId}
                       commentId={String(id)}
                       rating={rating}
                     />

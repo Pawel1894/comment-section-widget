@@ -5,16 +5,27 @@ import { useVoteState } from "./hooks/use-vote-state";
 
 import styles from "./CommentRating.module.css";
 
-type CommentRatingProps = {
-  rating: number;
-  commentId: string;
-  topicId: string;
-};
+type CommentRatingProps =
+  | {
+      context: "parent";
+      rating: number;
+      commentId: string;
+      topicId: string;
+    }
+  | {
+      context: "reply";
+      rating: number;
+      commentId: string;
+      parentCommentId: number;
+    };
 
-export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId, topicId }) => {
-  const [upvoted, setUpvoted] = useVoteState(commentId);
-  
-  const { mutate, isPending } = useVote(commentId, topicId, setUpvoted);
+export const CommentRating: FC<CommentRatingProps> = (props) => {
+  const [upvoted, setUpvoted] = useVoteState(props.commentId);
+
+  const contextKey =
+    props.context === "parent" ? ["comments", props.topicId] : ["comments-reply", props.parentCommentId];
+
+  const { mutate, isPending } = useVote(props.commentId, setUpvoted, contextKey);
 
   const handleVote = () => {
     if (upvoted) {
@@ -22,20 +33,15 @@ export const CommentRating: FC<CommentRatingProps> = ({ rating, commentId, topic
       return;
     }
 
-    mutate('upvote');
+    mutate("upvote");
   };
 
   return (
     <div className={styles.commentRating}>
-      <Button
-        disabled={isPending}
-        variant={upvoted ? "contained" : "text"}
-        size="xs"
-        onClick={handleVote}
-      >
+      <Button disabled={isPending} variant={upvoted ? "contained" : "text"} size="xs" onClick={handleVote}>
         ↑
       </Button>
-      {rating}
+      {props.rating}
     </div>
   );
 };

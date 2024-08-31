@@ -4,7 +4,7 @@ import type { Comment as CommentType } from "./comment-types";
 
 import { CommentWithReply } from "./CommentWithReply";
 
-import styles from './CommentListItem.module.css';
+import styles from "./CommentListItem.module.css";
 
 export const CommentListItem = ({
   id,
@@ -22,7 +22,7 @@ export const CommentListItem = ({
       parentCommentRef.current.scrollIntoView({ behavior: "smooth" });
     }
   }, []);
-  
+
   return (
     <div className={styles.commentListItem}>
       <CommentWithReply
@@ -33,14 +33,17 @@ export const CommentListItem = ({
         createdAt={createdAt}
         topicId={topicId}
         rating={
-          <Comment.Rating key={`rating-${id}`} topicId={topicId} commentId={String(id)} rating={rating} />
+          <Comment.Rating
+            context="parent"
+            topicId={topicId}
+            commentId={String(id)}
+            rating={rating}
+          />
         }
       >
         <Comment.Content>{content}</Comment.Content>
       </CommentWithReply>
-      {hasReplies && (
-        <Comment.Replies onHideReplies={handleScrollToParent} topicId={topicId} parentCommentId={id} />
-      )}
+      {hasReplies && <Comment.Replies onHideReplies={handleScrollToParent} parentCommentId={id} />}
     </div>
   );
 };

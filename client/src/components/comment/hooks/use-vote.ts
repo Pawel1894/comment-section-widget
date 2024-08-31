@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { QueryKey, useMutation, useQueryClient } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
 import { Comment } from "../comment-types";
 import type { VoteAction } from "../vote-types";
@@ -15,8 +15,8 @@ const vote = async ({ commentId, action }: voteParams): Promise<number> => {
 
 export const useVote = (
   commentId: string,
-  topicId: string,
-  setLocalVoted: (state: boolean | undefined) => void
+  setLocalVoted: (state: boolean | undefined) => void,
+  contextKey: QueryKey
 ) => {
   const queryClient = useQueryClient();
 
@@ -24,13 +24,13 @@ export const useVote = (
     mutationFn: (action: VoteAction) => vote({ commentId, action }),
     onMutate: async (action: VoteAction) => {
       await queryClient.cancelQueries({
-        queryKey: ["comments", topicId],
+        queryKey: contextKey,
       });
 
       setLocalVoted(action === "upvote");
-      const previousComments = queryClient.getQueryData(["comments", topicId]);
+      const previousComments = queryClient.getQueryData(contextKey);
 
-      queryClient.setQueryData(["comments", topicId], (old: Comment[]) => {
+      queryClient.setQueryData(contextKey, (old: Comment[]) => {
         return old.map((comment: Comment) => {
           if (String(comment.id) === commentId) {
             return {
@@ -45,12 +45,12 @@ export const useVote = (
       return { previousComments, action };
     },
     onError: (_, __, context) => {
-      queryClient.setQueryData(["comments", topicId], context?.previousComments);
+      queryClient.setQueryData(contextKey, context?.previousComments);
       setLocalVoted(context?.action === "upvote" ? false : true);
     },
     onSettled: () => {
       queryClient.invalidateQueries({
-        queryKey: ["comments", topicId],
+        queryKey: contextKey,
       });
     },
   });
