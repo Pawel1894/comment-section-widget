@@ -1,36 +1,68 @@
 import { FC, useState } from "react";
 
-import { Button } from "../ui/button/Button";
+import { Button } from "@ui/button/Button";
 import { useCommentsRepliesQuery } from "./hooks/use-comments-replies-query";
 import { Comment } from "./Comment";
 
+import styles from "./CommentReplies.module.css";
+
 type CommentRepliesProps = {
-  commentId: number;
+  parentCommentId: number;
   topicId: string;
+  onHideReplies: () => void;
 };
 
-export const CommentReplies: FC<CommentRepliesProps> = ({ commentId, topicId }) => {
+export const CommentReplies: FC<CommentRepliesProps> = ({ parentCommentId, topicId, onHideReplies }) => {
   const [showReplies, setShowReplies] = useState(false);
-  const { data } = useCommentsRepliesQuery(commentId, showReplies);
+  const { data } = useCommentsRepliesQuery(parentCommentId, showReplies);
+
+  const handleShowReplies = () => {
+    setShowReplies(!showReplies);
+  };
+
+
+  const handleHideReplies = () => {
+    setShowReplies(false);
+    onHideReplies();
+  };
 
   return (
-    <div>
-      {data &&
-        showReplies &&
-        data.map(({ id, author, createdAt, rating, content }) => (
-          <Comment
-            key={id}
-            id={id}
-            author={author}
-            createdAt={createdAt}
-            rating={
-              <Comment.Rating key={`rating-${id}`} topicId={topicId} commentId={String(id)} rating={rating} />
-            }
-          >
-            <Comment.Content>{content}</Comment.Content>
-          </Comment>
-        ))}
-      <Button onClick={() => setShowReplies((prev) => !prev)}>{showReplies ? "Hide" : "Show"} replies</Button>
+    <div className={styles.commentRepliesContainer}>
+      {data && (
+        <div className={styles.commentReplies}>
+          {showReplies &&
+            data.map(({ id, author, createdAt, rating, content }) => (
+              <div
+                key={id}
+                style={{
+                  paddingLeft: "10px",
+                }}
+              >
+                <Comment
+                  id={id}
+                  author={author}
+                  createdAt={createdAt}
+                  rating={
+                    <Comment.Rating
+                      key={`rating-${id}`}
+                      topicId={topicId}
+                      commentId={String(id)}
+                      rating={rating}
+                    />
+                  }
+                >
+                  <Comment.Content>{content}</Comment.Content>
+                </Comment>
+              </div>
+            ))}
+        </div>
+      )}
+      <Button
+        className={styles.toggleRepliesBtn}
+        onClick={showReplies ? handleHideReplies : handleShowReplies}
+      >
+        {showReplies ? "Hide" : "Show"} replies
+      </Button>
     </div>
   );
 };

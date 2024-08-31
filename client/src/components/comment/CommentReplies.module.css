@@ -1,0 +1,17 @@
+.commentRepliesContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.commentReplies {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-left: 0.75rem;
+  border-left: 1px solid var(--secondary-color);
+}
+
+.toggleRepliesBtn {
+  max-width: 100%;
+}
