@@ -1,6 +1,5 @@
 import { CommentRating } from "./CommentRating";
-import { useVoteState } from "./hooks/use-vote-state";
-import { vi, Mock } from "vitest";
+import { vi } from "vitest";
 import { fireEvent, render, screen, waitFor } from "@/tests/test-utils";
 
 const upVoteChar = "↑";
@@ -23,8 +22,6 @@ describe("CommentRating", () => {
   });
 
   it("should render the initial rating and buttons", () => {
-    (useVoteState as Mock).mockReturnValue([undefined, vi.fn()]);
-
     render(<CommentRating context="parent" rating={initialRating} commentId={commentId} topicId={topicId} />);
 
     expect(screen.getByText(upVoteChar)).toBeInTheDocument();
