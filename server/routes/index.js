@@ -7,10 +7,39 @@ const { createLikeFilter } = require("../db/like-filter");
 router.get("/topic/:topicId/comment", async function (req, res, next) {
   try {
     const { topicId } = req.params;
+
     const comments = await Comment.findAll({
-      where: { topicId },
+      where: { topicId, parentId: null },
       order: [["createdAt", "DESC"]],
     });
+
+    const enrichedComments = await Promise.all(
+      comments.map(async (comment) => {
+        const subCommentCount = await Comment.count({
+          where: { parentId: comment.id },
+        });
+        return {
+          ...comment.toJSON(),
+          hasReplies: subCommentCount > 0,
+        };
+      })
+    );
+
+    res.json(enrichedComments);
+  } catch (error) {
+    next(error);
+  }
+});
+
+router.get("/comment/:commentId/replies", async function (req, res, next) {
+  try {
+    const { commentId } = req.params;
+
+    const comments = await Comment.findAll({
+      where: { parentId: commentId },
+      order: [["createdAt", "ASC"]],
+    });
+
     res.json(comments);
   } catch (error) {
     next(error);
