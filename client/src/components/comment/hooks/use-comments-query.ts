@@ -1,4 +1,4 @@
-import { keepPreviousData, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { axiosInstance } from "src/axiosInstance";
 import { CommentSchema, Comment } from "../comment-types";
 
@@ -11,5 +11,4 @@ export const useCommentsQuery = (topicId: string) =>
   useQuery({
     queryKey: ["comments", topicId],
     queryFn: () => fetchComments(topicId),
-    placeholderData: keepPreviousData,
   });
