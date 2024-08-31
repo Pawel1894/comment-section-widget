@@ -25,14 +25,14 @@ describe("CommentRating", () => {
   it("should render the initial rating and buttons", () => {
     (useVoteState as Mock).mockReturnValue([undefined, vi.fn()]);
 
-    render(<CommentRating rating={initialRating} commentId={commentId} topicId={topicId} />);
+    render(<CommentRating context="parent" rating={initialRating} commentId={commentId} topicId={topicId} />);
 
     expect(screen.getByText(upVoteChar)).toBeInTheDocument();
     expect(screen.getByText(initialRating.toString())).toBeInTheDocument();
   });
 
   it("should handle upvote", () => {
-    render(<CommentRating rating={initialRating} commentId={commentId} topicId={topicId} />);
+    render(<CommentRating context="parent" rating={initialRating} commentId={commentId} topicId={topicId} />);
 
     fireEvent.click(screen.getByText(upVoteChar));
     
@@ -42,7 +42,7 @@ describe("CommentRating", () => {
   });
 
   it("should handle removing vote", () => {
-    render(<CommentRating rating={initialRating} commentId={commentId} topicId={topicId} />);
+    render(<CommentRating context="parent" rating={initialRating} commentId={commentId} topicId={topicId} />);
 
     fireEvent.click(screen.getByText(upVoteChar));
     
@@ -74,7 +74,7 @@ describe("CommentRating", () => {
     });
   
     it("should disable vote button when pending", () => {
-      render(<CommentRating rating={initialRating} commentId={commentId} topicId={topicId} />);
+      render(<CommentRating context="parent" rating={initialRating} commentId={commentId} topicId={topicId} />);
   
       fireEvent.click(screen.getByText(upVoteChar));
   

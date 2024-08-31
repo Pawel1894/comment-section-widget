@@ -39,7 +39,7 @@ describe("localStorage utils", () => {
 
   describe("getFromLocalStorage", () => {
     it("should return parsed value from localStorage for existing key", () => {
-      const key = "userVotes";
+      const key = "userUpvotes";
       const value = { comment1: "upvote" };
       localStorage.setItem(key, JSON.stringify(value));
 
@@ -57,8 +57,8 @@ describe("localStorage utils", () => {
 
   describe("setInLocalStorage", () => {
     it("should set the value in localStorage", () => {
-      const key = "userVotes";
-      const value = { comment1: "upvote" };
+      const key = "userUpvotes";
+      const value = { comment1: true };
 
       setInLocalStorage(key, value);
 

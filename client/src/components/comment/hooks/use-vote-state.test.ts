@@ -26,10 +26,10 @@ describe("useVoteState", () => {
     const { result } = renderHook(() => useVoteState(commentId));
 
     act(() => {
-      result.current[1]("downvote");
+      result.current[1](false);
     });
 
-    expect(setVoteInLocalStorage).toHaveBeenCalledWith(commentId, "downvote");
+    expect(setVoteInLocalStorage).toHaveBeenCalledWith(commentId, false);
   });
 
   it("should remove the vote value from local storage when set to undefined", () => {
