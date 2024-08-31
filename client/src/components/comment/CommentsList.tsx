@@ -15,8 +15,10 @@ export const CommentsList: FC<CommentsListProps> = ({ comments, topicId }) => {
       {comments.map(({ id, author, createdAt, rating, content }) => (
         <Comment
           key={id}
+          id={id}
           author={author}
           createdAt={createdAt}
+          topicId={topicId}
           rating={<Comment.Rating key={`rating-${id}`} topicId={topicId} commentId={String(id)} rating={rating} />}
         >
           <Comment.Content>{content}</Comment.Content>

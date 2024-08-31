@@ -4,6 +4,14 @@
   gap: 1rem;
 }
 
+.title {
+  font-size: 0.75rem;
+  text-overflow: ellipsis;
+  display: block;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .createComment > * {
   width: 100%;
 }

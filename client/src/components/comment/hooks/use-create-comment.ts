@@ -16,6 +16,7 @@ const createComment = async ({ topicId, body }: CreateCommentParams): Promise<Co
 
 type UseCreateComment = {
   topicId: string;
+  replyToId?: string;
   onSuccess?: () => void;
   onError?: () => void;
 };

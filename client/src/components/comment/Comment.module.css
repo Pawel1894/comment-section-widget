@@ -1,3 +1,14 @@
+.commentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.replyTitle {
+  color: var(--secondary-color);
+  text-decoration: none;
+}
+
 .heading {
   display: flex;
   justify-content: space-between;
